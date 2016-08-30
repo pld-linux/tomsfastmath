@@ -1,16 +1,15 @@
-# TODO: reenable x86 asm if newer gcc succeeds to build it
 Summary:	TomsFastMath - large integer arithmetic library
 Summary(pl.UTF-8):	TomsFastMath - duża biblioteka arytmetyki na dużych liczbach całkowitych
 Name:		tomsfastmath
-Version:	0.12
+Version:	0.13
 Release:	1
-License:	Public Domain
+License:	Public Domain or WTFPL v2
 Group:		Libraries
-Source0:	http://libtom.org/files/tfm-%{version}.tar.bz2
-# Source0-md5:	821edbffb03502f0614c8717bda6fd54
-URL:		http://libtom.org/?page=features&whatfile=tfm
+#Source0Download: https://github.com/libtom/tomsfastmath/releases
+Source0:	https://github.com/libtom/tomsfastmath/releases/download/v%{version}.0/tfm-%{version}.tar.bz2
+# Source0-md5:	1c004f98c256c27ceb9aac87aff84aa6
+URL:		http://www.libtom.org/TomsFastMath/
 BuildRequires:	libtool >= 2:1.5
-BuildRequires:	sed >= 4.0
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -51,18 +50,10 @@ Statyczna biblioteka TomsFastMath.
 %prep
 %setup -q
 
-%{__sed} -i -e 's/\<gcc\>/$(GCC)/' makefile.shared
-
 %build
-%ifarch %{ix86}
-# gcc 4.7 fails to allocate 3 GREGs + 2 clobbered when compiling PIC
-WORKAROUND="-DTFM_NO_ASM"
-%else
-WORKAROUND=
-%endif
-CFLAGS="%{rpmcflags} -fomit-frame-pointer $WORKAROUND" \
+CFLAGS="%{rpmcflags} -fomit-frame-pointer" \
 %{__make} -f makefile.shared \
-	GCC="%{__cc}" \
+	CC="%{__cc}" \
 	LIBPATH=%{_libdir}
 
 %install
@@ -82,9 +73,9 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc LICENSE SPONSORS changes.txt
+%doc LICENSE README.md SPONSORS changes.txt
 %attr(755,root,root) %{_libdir}/libtfm.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libtfm.so.0
+%attr(755,root,root) %ghost %{_libdir}/libtfm.so.1
 
 %files devel
 %defattr(644,root,root,755)
