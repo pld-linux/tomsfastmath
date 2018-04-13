@@ -1,15 +1,17 @@
 Summary:	TomsFastMath - large integer arithmetic library
 Summary(pl.UTF-8):	TomsFastMath - duża biblioteka arytmetyki na dużych liczbach całkowitych
 Name:		tomsfastmath
-Version:	0.13
+Version:	0.13.1
 Release:	1
 License:	Public Domain or WTFPL v2
 Group:		Libraries
 #Source0Download: https://github.com/libtom/tomsfastmath/releases
-Source0:	https://github.com/libtom/tomsfastmath/releases/download/v%{version}.0/tfm-%{version}.tar.bz2
-# Source0-md5:	1c004f98c256c27ceb9aac87aff84aa6
-URL:		http://www.libtom.org/TomsFastMath/
+Source0:	https://github.com/libtom/tomsfastmath/releases/download/v%{version}/tfm-%{version}.tar.xz
+# Source0-md5:	123569cd5362e228ae5670543a4d006d
+URL:		http://www.libtom.net/TomsFastMath/
 BuildRequires:	libtool >= 2:1.5
+BuildRequires:	tar >= 1:1.22
+BuildRequires:	xz
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -54,6 +56,7 @@ Statyczna biblioteka TomsFastMath.
 CFLAGS="%{rpmcflags} -fomit-frame-pointer" \
 %{__make} -f makefile.shared \
 	CC="%{__cc}" \
+	IGNORE_SPEED=1 \
 	LIBPATH=%{_libdir}
 
 %install
