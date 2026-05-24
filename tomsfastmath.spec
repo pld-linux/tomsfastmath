@@ -2,7 +2,7 @@ Summary:	TomsFastMath - large integer arithmetic library
 Summary(pl.UTF-8):	TomsFastMath - duża biblioteka arytmetyki na dużych liczbach całkowitych
 Name:		tomsfastmath
 Version:	0.13.1
-Release:	2
+Release:	3
 License:	Public Domain or WTFPL v2
 Group:		Libraries
 #Source0Download: https://github.com/libtom/tomsfastmath/releases
